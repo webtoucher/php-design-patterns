@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors','On');
+error_reporting(E_ALL);
 /**
  * Some product
  */
@@ -51,7 +53,7 @@ class SomeProduct implements Product
  * =====================================
  */
 
-$prototypeFactory = new PrototypeFactory(new FirstProduct());
+$prototypeFactory = new PrototypeFactory(new SomeProduct());
 $firstProduct = $prototypeFactory->getProduct();
 $firstProduct->name = 'The first product';
 $secondProduct = $prototypeFactory->getProduct();
