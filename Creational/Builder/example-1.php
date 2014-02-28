@@ -136,7 +136,7 @@ class SecondBuilder extends Builder
 $firstDirector = new Director(new FirstBuilder());
 $secondDirector = new Director(new SecondBuilder());
 
-print_r($firstDirector->getProduct());
+print_r($firstDirector->getProduct()->getName());
 // The product of the first builder
-print_r($secondDirector->getProduct());
+print_r($secondDirector->getProduct()->getName());
 // The product of second builder
