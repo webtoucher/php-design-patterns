@@ -32,9 +32,7 @@ class Factory
      */
     public static function getProduct($id)
     {
-        if (isset(self::$products[$id])) {
-            return self::$products[$id];
-        }
+        return isset(self::$products[$id]) ? self::$products[$id] : null;
     }
 
     /**
@@ -55,7 +53,7 @@ class Product
 {
 
     /**
-     * @var integer
+     * @var integer|string
      */
     protected $id;
 
@@ -65,7 +63,7 @@ class Product
     }
 
     /**
-     * @return integer
+     * @return integer|string
      */
     public function getId()
     {
