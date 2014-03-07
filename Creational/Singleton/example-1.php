@@ -4,7 +4,7 @@
  *
  * @package Patterns
  */
-class Product
+final class Product
 {
 
     private static $instance;
