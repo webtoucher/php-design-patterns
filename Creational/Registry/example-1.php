@@ -8,13 +8,13 @@ class Product
 {
 
     /**
-     * @var Product[]
+     * @var mixed[]
      */
     protected static $data = array();
 
 
     /**
-     * Adds variable into the registry
+     * Adds value into the registry
      *
      * @param string $key
      * @param mixed $value
