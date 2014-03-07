@@ -27,7 +27,7 @@ class Factory
     /**
      * Returns product from the pool by ID
      *
-     * @param $id - product's ID
+     * @param integer|string $id - product's ID
      * @return Product $product
      */
     public static function getProduct($id)
@@ -38,10 +38,10 @@ class Factory
     /**
      * Removes product from the pool by ID
      *
-     * @param $id - product's ID
+     * @param integer|string $id - product's ID
      * @return void
      */
-    final public static function removeProduct($id)
+    public static function removeProduct($id)
     {
         if (isset(self::$products[$id])) {
             unset(self::$products[$id]);
