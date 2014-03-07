@@ -1,12 +1,15 @@
 <?php
 /**
- * General singleton abstract class
+ * General multiton abstract class
  *
  * @package Patterns
  */
-abstract class SingletonAbstract
+abstract class FactoryAbstract
 {
 
+    /**
+     * @var array
+     */
     protected static $instances = array();
 
 
@@ -26,6 +29,8 @@ abstract class SingletonAbstract
 
     /**
      * Removes singleton
+     *
+     * @return void
      */
     public static function removeInstance()
     {
@@ -40,7 +45,7 @@ abstract class SingletonAbstract
      *
      * @return string
      */
-    protected static function getClassName()
+    final protected static function getClassName()
     {
         return get_called_class();
     }
@@ -55,64 +60,37 @@ abstract class SingletonAbstract
     /**
      * Cloning is disabled
      */
-    protected function __clone()
+    final protected function __clone()
     {
     }
 
     /**
      * Serialization is disabled
      */
-    protected function __sleep()
+    final protected function __sleep()
     {
     }
 
     /**
      * Unserialization is disabled
      */
-    protected function __wakeup()
+    final protected function __wakeup()
     {
     }
 }
 
 /**
- * Singleton abstract class
+ * Multiton abstract class
  *
  * @package Patterns
  */
-abstract class Singleton extends SingletonAbstract
-{
-
-    /**
-     * Returns singleton
-     *
-     * @return static
-     */
-    final public static function getInstance()
-    {
-        return parent::getInstance();
-    }
-
-    /**
-     * Removes singleton
-     */
-    final public static function removeInstance()
-    {
-        parent::removeInstance();
-    }
-}
-
-/**
- * Instance pool abstract class
- *
- * @package Patterns
- */
-abstract class InstancePool extends SingletonAbstract
+abstract class RegistryFactory extends FactoryAbstract
 {
 
     /**
      * Returns singleton by ID
      *
-     * @param $id - singleton's ID
+     * @param integer|string $id - singleton's ID
      * @return static
      */
     final public static function getInstance($id)
@@ -133,7 +111,8 @@ abstract class InstancePool extends SingletonAbstract
     /**
      * Removes singleton by ID
      *
-     * @param $id - singleton's ID. All class instances will be removed if ID is not set
+     * @param integer|string $id - singleton's ID. All class instances will be removed if ID is not set
+     * @return void
      */
     final public static function removeInstance($id = null)
     {
@@ -152,52 +131,21 @@ abstract class InstancePool extends SingletonAbstract
         }
     }
 
-    protected function __construct($id) {}
+    protected function __construct($id)
+    {
+    }
 }
 
 /*
  * =====================================
- *           USING OF SINGLETON
+ *           USING OF MULTITON
  * =====================================
  */
 
 /**
- * First singleton
+ * First object pool
  */
-class SingletonTest1 extends Singleton
-{
-    public $a = [];
-}
-
-/**
- * Second singleton
- */
-class SingletonTest2 extends SingletonTest1
-{
-}
-
-// Filling arrays of singletons SingletonTest1 and SingletonTest2
-SingletonTest1::getInstance()->a[] = 1;
-SingletonTest2::getInstance()->a[] = 2;
-SingletonTest1::getInstance()->a[] = 3;
-SingletonTest2::getInstance()->a[] = 4;
-
-print_r(SingletonTest1::getInstance()->a);
-// array(1, 3)
-print_r(SingletonTest2::getInstance()->a);
-// array(2, 4)
-
-
-/*
- * =====================================
- *         USING OF INSTANCE POOL
- * =====================================
- */
-
-/**
- * First instance pool
- */
-class InstancePoolTest1 extends InstancePool
+class FirstFactory extends RegistryFactory
 {
     public $a = [];
 }
@@ -205,25 +153,25 @@ class InstancePoolTest1 extends InstancePool
 /**
  * Second instance pool
  */
-class InstancePoolTest2 extends InstancePoolTest1
+class SecondFactory extends FirstFactory
 {
 }
 
-// Параллельно обращаемся к синглтонам разных классов
-InstancePoolTest1::getInstance(1)->a[] = 1;
-InstancePoolTest1::getInstance(2)->a[] = 2;
-InstancePoolTest2::getInstance(1)->a[] = 3;
-InstancePoolTest2::getInstance(2)->a[] = 4;
-InstancePoolTest1::getInstance(1)->a[] = 5;
-InstancePoolTest1::getInstance(2)->a[] = 6;
-InstancePoolTest2::getInstance(1)->a[] = 7;
-InstancePoolTest2::getInstance(2)->a[] = 8;
+// Filling property of singletons
+FirstFactory::getInstance('FirstProduct')->a[] = 1;
+FirstFactory::getInstance('SecondProduct')->a[] = 2;
+SecondFactory::getInstance('FirstProduct')->a[] = 3;
+SecondFactory::getInstance('SecondProduct')->a[] = 4;
+FirstFactory::getInstance('FirstProduct')->a[] = 5;
+FirstFactory::getInstance('SecondProduct')->a[] = 6;
+SecondFactory::getInstance('FirstProduct')->a[] = 7;
+SecondFactory::getInstance('SecondProduct')->a[] = 8;
 
-print_r(InstancePoolTest1::getInstance(1)->a);
+print_r(FirstFactory::getInstance('FirstProduct')->a);
 // array(1, 5)
-print_r(InstancePoolTest1::getInstance(2)->a);
+print_r(FirstFactory::getInstance('SecondProduct')->a);
 // array(2, 6)
-print_r(InstancePoolTest2::getInstance(1)->a);
+print_r(SecondFactory::getInstance('FirstProduct')->a);
 // array(3, 7)
-print_r(InstancePoolTest2::getInstance(2)->a);
+print_r(SecondFactory::getInstance('SecondProduct')->a);
 // array(4, 8)
