@@ -7,8 +7,14 @@
 final class Product
 {
 
+    /**
+     * @var self
+     */
     private static $instance;
 
+    /**
+     * @var mixed
+     */
     public $a;
 
 
@@ -28,28 +34,28 @@ final class Product
     /**
      * The constructor is disabled
      */
-    protected function __construct()
+    private function __construct()
     {
     }
 
     /**
      * Cloning is disabled
      */
-    protected function __clone()
+    private function __clone()
     {
     }
 
     /**
      * Serialization is disabled
      */
-    protected function __sleep()
+    private function __sleep()
     {
     }
 
     /**
      * Unserialization is disabled
      */
-    protected function __wakeup()
+    private function __wakeup()
     {
     }
 }
