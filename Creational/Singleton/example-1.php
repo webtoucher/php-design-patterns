@@ -1,18 +1,21 @@
 <?php
 /**
  * Simple singleton class
+ *
+ * @package Patterns
  */
-class Singleton
+class Product
 {
 
     private static $instance;
 
     public $a;
 
+
     /**
      * Returns singleton
      *
-     * @return Singleton
+     * @return self
      */
     public static function getInstance()
     {
@@ -57,13 +60,13 @@ class Singleton
  * =====================================
  */
 
-$firstObject = Singleton::getInstance();
-$secondObject = Singleton::getInstance();
+$firstProduct = Product::getInstance();
+$secondProduct = Product::getInstance();
 
-$firstObject->a = 1;
-$secondObject->a = 2;
+$firstProduct->a = 1;
+$secondProduct->a = 2;
 
-print_r($firstObject->a);
+print_r($firstProduct->a);
 // 2
-print_r($secondObject->a);
+print_r($secondProduct->a);
 // 2
