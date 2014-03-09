@@ -10,25 +10,11 @@ class Config
 /**
  * Some product
  */
-interface FirstProduct
+interface Product
 {
 
     /**
-     * Returns product name
-     *
-     * @return string
-     */
-    public function getName();
-}
-
-/**
- * Some another product
- */
-interface SecondProduct
-{
-
-    /**
-     * Returns product name
+     * Returns product's name
      *
      * @return string
      */
@@ -59,18 +45,11 @@ abstract class AbstractFactory
     }
 
     /**
-     * Returns the first product
+     * Returns the product
      *
-     * @return FirstProduct
+     * @return Product
      */
-    abstract public function getFirstProduct();
-
-    /**
-     * Returns second product
-     *
-     * @return SecondProduct
-     */
-    abstract public function getSecondProduct();
+    abstract public function getProduct();
 }
 
 /*
@@ -83,57 +62,30 @@ class FirstFactory extends AbstractFactory
 {
 
     /**
-     * Returns the first product
+     * Returns the product
      *
-     * @return FirstProduct
+     * @return Product
      */
-    public function getFirstProduct()
+    public function getProduct()
     {
-        return new FirstFactoryFirstProduct();
-    }
-
-    /**
-     * Returns second product
-     *
-     * @return SecondProduct
-     */
-    public function getSecondProduct()
-    {
-        return new FirstFactorySecondProduct();
+        return new FirstProduct();
     }
 }
 
 /**
- * The first product from the first factory
+ * The product from the first factory
  */
-class FirstFactoryFirstProduct implements FirstProduct
+class FirstProduct implements Product
 {
 
     /**
-     * Returns product name
+     * Returns product's name
      *
      * @return string
      */
     public function getName()
     {
-        return 'The first product from the first factory';
-    }
-}
-
-/**
- * Second product from the first factory
- */
-class FirstFactorySecondProduct implements SecondProduct
-{
-
-    /**
-     * Returns product name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return 'Second product from the first factory';
+        return 'The product from the first factory';
     }
 }
 
@@ -147,57 +99,30 @@ class SecondFactory extends AbstractFactory
 {
 
     /**
-     * Returns the first product
+     * Returns the product
      *
-     * @return FirstProduct
+     * @return Product
      */
-    public function getFirstProduct()
+    public function getProduct()
     {
-        return new SecondFactoryFirstProduct();
-    }
-
-    /**
-     * Returns second product
-     *
-     * @return SecondProduct
-     */
-    public function getSecondProduct()
-    {
-        return new SecondFactorySecondProduct();
+        return new SecondProduct();
     }
 }
 
 /**
- * The first product from second factory
+ * The product from second factory
  */
-class SecondFactoryFirstProduct implements FirstProduct
+class SecondProduct implements Product
 {
 
     /**
-     * Returns product name
+     * Returns product's name
      *
      * @return string
      */
     public function getName()
     {
-        return 'The first product from second factory';
-    }
-}
-
-/**
- * Second product from second factory
- */
-class SecondFactorySecondProduct implements SecondProduct
-{
-
-    /**
-     * Returns product name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return 'Second product from second factory';
+        return 'The product from second factory';
     }
 }
 
@@ -207,9 +132,9 @@ class SecondFactorySecondProduct implements SecondProduct
  * =====================================
  */
 
-$firstProduct = AbstractFactory::getFactory()->getFirstProduct();
+$firstProduct = AbstractFactory::getFactory()->getProduct();
 Config::$factory = 2;
-$secondProduct = AbstractFactory::getFactory()->getSecondProduct();
+$secondProduct = AbstractFactory::getFactory()->getProduct();
 
 print_r($firstProduct->getName());
 // The first product from the first factory
