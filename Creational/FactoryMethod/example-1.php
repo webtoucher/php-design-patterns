@@ -1,19 +1,36 @@
 <?php
 /**
+ * Some factory
+ */
+interface Factory
+{
+
+    /**
+     * Returns product
+     *
+     * @return Product
+     */
+    public function getProduct();
+}
+
+/**
  * Some product
  */
 interface Product
 {
 
     /**
-     * Returns product name
+     * Returns product's name
      *
      * @return string
      */
     public function getName();
 }
 
-class Factory
+/**
+ * First factory
+ */
+class FirstFactory implements Factory
 {
 
     /**
@@ -21,19 +38,26 @@ class Factory
      *
      * @return Product
      */
-    public function getFirstProduct()
+    public function getProduct()
     {
         return new FirstProduct();
     }
+}
+
+/**
+ * Second factory
+ */
+class SecondFactory implements Factory
+{
 
     /**
      * Returns the product
      *
      * @return Product
      */
-    public function getSecondProduct()
+    public function getProduct()
     {
-        return new SecondProduct();
+        return new FirstProduct();
     }
 }
 
@@ -44,7 +68,7 @@ class FirstProduct implements Product
 {
 
     /**
-     * Returns product name
+     * Returns product's name
      *
      * @return string
      */
@@ -61,7 +85,7 @@ class SecondProduct implements Product
 {
 
     /**
-     * Returns product name
+     * Returns product's name
      *
      * @return string
      */
@@ -77,9 +101,10 @@ class SecondProduct implements Product
  * =====================================
  */
 
-$factory = new Factory();
-$firstProduct = $factory->getFirstProduct();
-$secondProduct = $factory->getSecondProduct();
+$factory = new FirstFactory();
+$firstProduct = $factory->getProduct();
+$factory = new SecondFactory();
+$secondProduct = $factory->getProduct();
 
 print_r($firstProduct->getName());
 // The first product
