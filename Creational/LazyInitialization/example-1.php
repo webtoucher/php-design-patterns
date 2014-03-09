@@ -6,7 +6,7 @@ interface Product
 {
 
     /**
-     * Returns product name
+     * Returns product's name
      *
      * @return string
      */
@@ -50,7 +50,7 @@ class Factory
     {
 
         if (!$this->secondProduct) {
-            $this->secondProduct = new FirstProduct();
+            $this->secondProduct = new SecondProduct();
         }
         return $this->secondProduct;
     }
@@ -63,7 +63,7 @@ class FirstProduct implements Product
 {
 
     /**
-     * Returns product name
+     * Returns product's name
      *
      * @return string
      */
@@ -80,7 +80,7 @@ class SecondProduct implements Product
 {
 
     /**
-     * Returns product name
+     * Returns product's name
      *
      * @return string
      */
