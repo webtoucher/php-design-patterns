@@ -27,9 +27,9 @@ class Product
 }
 
 /**
- * Director class
+ * Some factory
  */
-class Director
+class Factory
 {
 
     /**
@@ -133,8 +133,8 @@ class SecondBuilder extends Builder
  * =====================================
  */
 
-$firstDirector = new Director(new FirstBuilder());
-$secondDirector = new Director(new SecondBuilder());
+$firstDirector = new Factory(new FirstBuilder());
+$secondDirector = new Factory(new SecondBuilder());
 
 print_r($firstDirector->getProduct()->getName());
 // The product of the first builder
