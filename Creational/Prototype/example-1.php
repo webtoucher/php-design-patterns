@@ -1,6 +1,4 @@
 <?php
-ini_set('display_errors','On');
-error_reporting(E_ALL);
 /**
  * Some product
  */
@@ -9,9 +7,9 @@ interface Product
 }
 
 /**
- * Prototype Factory
+ * Prototype factory
  */
-class PrototypeFactory
+class Factory
 {
 
     /**
@@ -40,7 +38,7 @@ class PrototypeFactory
 }
 
 /**
- * The first product
+ * The product
  */
 class SomeProduct implements Product
 {
@@ -53,9 +51,11 @@ class SomeProduct implements Product
  * =====================================
  */
 
-$prototypeFactory = new PrototypeFactory(new SomeProduct());
+$prototypeFactory = new Factory(new SomeProduct());
+
 $firstProduct = $prototypeFactory->getProduct();
 $firstProduct->name = 'The first product';
+
 $secondProduct = $prototypeFactory->getProduct();
 $secondProduct->name = 'Second product';
 
