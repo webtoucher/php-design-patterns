@@ -57,7 +57,7 @@ class SecondFactory implements Factory
      */
     public function getProduct()
     {
-        return new FirstProduct();
+        return new SecondProduct();
     }
 }
 
